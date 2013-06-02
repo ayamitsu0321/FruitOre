@@ -127,17 +127,25 @@ public class BlockFruitOre extends BlockContainer {
 		ItemStack itemStack = player.inventory.getCurrentItem();
 
 		if (itemStack != null && itemStack.itemID == Item.dyePowder.itemID && itemStack.getItemDamage() == 15) {
-			if (!world.isRemote) {
-				this.growFruitMax(world, blockX, blockY, blockZ);
+			TileEntity tileEntity = world.getBlockTileEntity(blockX, blockY, blockZ);
 
-				if (!player.capabilities.isCreativeMode) {
-					if (--itemStack.stackSize <= 0) {
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+			if (tileEntity instanceof TileEntityFruitOre) {
+				FruitOreObject object = FruitOreObject.fruitsList[((TileEntityFruitOre)tileEntity).getFruitId()];
+
+				if (object != null && this.canGrowFruit(object, world, blockX, blockY, blockZ, tileEntity.getBlockMetadata(), world.rand)) {
+					if (!world.isRemote) {
+						this.growFruitMax(world, blockX, blockY, blockZ);
+
+						if (!player.capabilities.isCreativeMode) {
+							if (--itemStack.stackSize <= 0) {
+								player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+							}
+						}
 					}
+
+					return true;
 				}
 			}
-
-			return true;
 		}
 
 		return false;
@@ -156,7 +164,7 @@ public class BlockFruitOre extends BlockContainer {
 			if (fruitOreObject != null) {
 				int meta = world.getBlockMetadata(blockX, blockY, blockZ);
 
-				if (this.canGrowFruit(fruitOreObject, world, blockX, blockY, blockZ, meta, random)) {
+				if (this.canGrowFruitRandom(fruitOreObject, world, blockX, blockY, blockZ, meta, random)) {
 					this.growFruit(world, blockX, blockY, blockZ, meta);
 				}
 			}
@@ -164,6 +172,10 @@ public class BlockFruitOre extends BlockContainer {
 	}
 
 	protected boolean canGrowFruit(FruitOreObject fruitOreObject, World world, int blockX, int blockY, int blockZ, int meta, Random random) {
+		return meta < fruitOreObject.getMaxGrowLevel();
+	}
+
+	protected boolean canGrowFruitRandom(FruitOreObject fruitOreObject, World world, int blockX, int blockY, int blockZ, int meta, Random random) {
 		return meta < fruitOreObject.getMaxGrowLevel() && random.nextInt(fruitOreObject.getGrowthRandomRate()) == 0;
 	}
 

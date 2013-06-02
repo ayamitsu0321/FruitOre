@@ -32,18 +32,24 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
 		FruitOreObject object = FruitOreObject.fruitsList[fruitOre.getFruitId()];
 
-		if (object != null && fruitOre.getBlockMetadata() >= object.getHarvetableLevel()) {
-			ItemStack renderItem = object.getRenderItem(fruitOre.getFruitMeta(), fruitOre.worldObj.rand);
+		if (object != null) {
+			if (fruitOre.getBlockMetadata() >= object.getHarvetableLevel()) {
+				ItemStack renderItem = object.getRenderItem(fruitOre.getFruitMeta(), fruitOre.worldObj.rand);
 
-			if (renderItem != null) {
-				EntityItem entityItem = new EntityItem(fruitOre.worldObj, 0.0D, 0.0D, 0.0D, renderItem);
-				entityItem.hoverStart = 0;
+				if (renderItem != null) {
+					EntityItem entityItem = new EntityItem(fruitOre.worldObj, 0.0D, 0.0D, 0.0D, renderItem);
+					entityItem.hoverStart = 0;
 
-				GL11.glPushMatrix();
-				RenderItem.renderInFrame = true;
-				RenderManager.instance.renderEntityWithPosYaw(entityItem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
-				RenderItem.renderInFrame = false;
-				GL11.glPopMatrix();
+					GL11.glPushMatrix();
+					RenderItem.renderInFrame = true;
+					RenderManager.instance.renderEntityWithPosYaw(entityItem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+					RenderItem.renderInFrame = false;
+					GL11.glPopMatrix();
+				}
+			} else {
+				float scale = 0.5F;
+				GL11.glScalef(scale, scale, scale);
+				GL11.glTranslatef(0.0F, 0.5F, 0.0F);
 			}
 		}
 
