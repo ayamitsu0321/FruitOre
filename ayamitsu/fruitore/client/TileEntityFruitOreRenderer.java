@@ -32,8 +32,6 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
 		FruitOreObject object = FruitOreObject.fruitsList[fruitOre.getFruitId()];
 
-		//System.out.println("object=" + object + ", meta=" + fruitOre.getBlockMetadata() + ", fruit id=" + fruitOre.getFruitId() + " meta=" + fruitOre.getFruitMeta());
-
 		if (object != null && fruitOre.getBlockMetadata() >= object.getHarvetableLevel()) {
 			ItemStack renderItem = object.getRenderItem(fruitOre.getFruitMeta(), fruitOre.worldObj.rand);
 

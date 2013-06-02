@@ -51,11 +51,11 @@ public class FruitOreObject {
 	}
 
 	public int getHarvetableLevel() {
-		return 0;//7;
+		return 7;
 	}
 
 	public int getGrowthRandomRate() {
-		return 16;
+		return 5;
 	}
 
 	protected int getDropValue(int meta, int growLevel) {

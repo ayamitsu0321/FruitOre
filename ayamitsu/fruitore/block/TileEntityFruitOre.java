@@ -49,7 +49,6 @@ public class TileEntityFruitOre extends TileEntity {
 		super.readFromNBT(nbttagcompound);
 
 		if (nbttagcompound.hasKey(FruitOreObject.FRUIT_ORE_OBJECT)) {
-
 			NBTTagCompound fruitNBT = nbttagcompound.getCompoundTag(FruitOreObject.FRUIT_ORE_OBJECT);
 			this.fruitId = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_ID);
 			this.fruitMeta = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_META);

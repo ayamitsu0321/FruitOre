@@ -40,7 +40,7 @@ public class ItemFruitOreSapling extends ItemBlock {
 			NBTTagCompound fruitNBT = nbttagcompound.getCompoundTag(FruitOreObject.FRUIT_ORE_OBJECT);
 			int fruitId = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_ID);
 			int fruitMeta = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_META);
-			list.add((new StringBuilder()).append("Fruit:").append(FruitOreObject.fruitsList[fruitId].getDisplayName(fruitMeta)).toString());
+			list.add((new StringBuilder()).append(StatCollector.translateToLocal("ayamitsu.fruitore.fruit")).append(" : ").append(FruitOreObject.fruitsList[fruitId].getDisplayName(fruitMeta)).toString());
 		}
 	}
 

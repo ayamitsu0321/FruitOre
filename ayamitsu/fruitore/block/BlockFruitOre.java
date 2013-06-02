@@ -10,6 +10,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -56,8 +58,6 @@ public class BlockFruitOre extends BlockContainer {
 
 			if (fruitNBT.hasKey(FruitOreObject.FRUIT_ORE_OBJECT_ID)) {
 				if (FruitOreObject.fruitsList[fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_ID)] != null) {
-					//return true;// debug
-
 					if (this.canPlaceBlockAt(world, blockX, blockY, blockZ)) {
 						return true;
 					}
@@ -88,8 +88,8 @@ public class BlockFruitOre extends BlockContainer {
 
 	@Override
 	public boolean canBlockStay(World world, int blockX, int blockY, int blockZ) {
-		// 真上が普通のBlock//で、その上に液体、もしくは普通のBlockがあり、その上に液体があれば
-		return true;//world.isBlockNormalCube(blockX, blockY + 1, blockZ);// && (world.getBlockMaterial(blockX, blockY + 2, blockZ).isLiquid() || world.isBlockNormalCube(blockX, blockY + 2, blockZ) && world.getBlockMaterial(blockX, blockY + 3, blockZ).isLiquid());
+		// 真上が普通のBlockで、その上に液体、もしくは普通のBlockがあり、その上に液体があれば
+		return world.isBlockNormalCube(blockX, blockY + 1, blockZ) && (world.getBlockMaterial(blockX, blockY + 2, blockZ).isLiquid() || world.isBlockNormalCube(blockX, blockY + 2, blockZ) && world.getBlockMaterial(blockX, blockY + 3, blockZ).isLiquid());
 	}
 
 	protected void checkFruitChange(World world, int blockX, int blockY, int blockZ) {
@@ -123,6 +123,27 @@ public class BlockFruitOre extends BlockContainer {
     }
 
 	@Override
+	public boolean onBlockActivated(World world, int blockX, int blockY, int blockZ, EntityPlayer player, int face, float hitX, float hitY, float hitZ) {
+		ItemStack itemStack = player.inventory.getCurrentItem();
+
+		if (itemStack != null && itemStack.itemID == Item.dyePowder.itemID && itemStack.getItemDamage() == 15) {
+			if (!world.isRemote) {
+				this.growFruitMax(world, blockX, blockY, blockZ);
+
+				if (!player.capabilities.isCreativeMode) {
+					if (--itemStack.stackSize <= 0) {
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
 	public void updateTick(World world, int blockX, int blockY, int blockZ, Random random) {
 		this.checkFruitChange(world, blockX, blockY, blockZ);
 
@@ -146,8 +167,20 @@ public class BlockFruitOre extends BlockContainer {
 		return meta < fruitOreObject.getMaxGrowLevel() && random.nextInt(fruitOreObject.getGrowthRandomRate()) == 0;
 	}
 
+	protected void growFruitMax(World world, int blockX, int blockY, int blockZ) {
+		TileEntity tileEntity = world.getBlockTileEntity(blockX, blockY, blockZ);
+
+		if (tileEntity instanceof TileEntityFruitOre) {
+			FruitOreObject fruitOreObject = FruitOreObject.fruitsList[((TileEntityFruitOre)tileEntity).getFruitId()];
+
+			if (fruitOreObject != null) {
+				world.setBlockMetadataWithNotify(blockX, blockY, blockZ, fruitOreObject.getMaxGrowLevel(), 2);
+			}
+		}
+	}
+
 	protected void growFruit(World world, int blockX, int blockY, int blockZ, int meta) {
-		world.setBlockMetadataWithNotify(blockX, blockY, blockZ, meta++, 2);
+		world.setBlockMetadataWithNotify(blockX, blockY, blockZ, ++meta, 2);
 	}
 
 	@Override
@@ -160,6 +193,7 @@ public class BlockFruitOre extends BlockContainer {
 	public void getSubBlocks(int id, CreativeTabs tab, List list) {
 		list.add(new ItemStack(id, 1, 0));
 
+		// debug
 		if (id != this.blockID) {
 			for (int i = 0; i < FruitOreObject.fruitsList.length; i++) {
 				if (FruitOreObject.fruitsList[i] != null) {

@@ -69,6 +69,9 @@ public class FruitOre {
 
 		GameRegistry.addRecipe(new RecipeFruitOreSapling());
 
+		LanguageRegistry.instance().addStringLocalization("ayamitsu.fruitore.fruit", "en_US", "Fruit");
+		LanguageRegistry.instance().addStringLocalization("ayamitsu.fruitore.fruit", "ja_JP", "フルーツ");
+
 		this.proxy.load();
 	}
 
