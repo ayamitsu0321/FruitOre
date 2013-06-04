@@ -86,6 +86,17 @@ public class BlockFruitOre extends BlockContainer {
 		}
 	}
 
+	/**
+	 * + is normal block
+	 * - is liquid block
+	 * # is fruit  block
+	 *
+	 *              -
+	 *   -          +
+	 *   +    or    +
+	 *   #          #
+	 *
+	 */
 	@Override
 	public boolean canBlockStay(World world, int blockX, int blockY, int blockZ) {
 		// 真上が普通のBlockで、その上に液体、もしくは普通のBlockがあり、その上に液体があれば
@@ -151,6 +162,9 @@ public class BlockFruitOre extends BlockContainer {
 		return false;
 	}
 
+	/**
+	 * grow
+	 */
 	@Override
 	public void updateTick(World world, int blockX, int blockY, int blockZ, Random random) {
 		this.checkFruitChange(world, blockX, blockY, blockZ);
@@ -171,10 +185,16 @@ public class BlockFruitOre extends BlockContainer {
 		}
 	}
 
+	/**
+	 * judge growable
+	 */
 	protected boolean canGrowFruit(FruitOreObject fruitOreObject, World world, int blockX, int blockY, int blockZ, int meta, Random random) {
 		return meta < fruitOreObject.getMaxGrowLevel();
 	}
 
+	/**
+	 * use on natural grow
+	 */
 	protected boolean canGrowFruitRandom(FruitOreObject fruitOreObject, World world, int blockX, int blockY, int blockZ, int meta, Random random) {
 		return meta < fruitOreObject.getMaxGrowLevel() && random.nextInt(fruitOreObject.getGrowthRandomRate()) == 0;
 	}
@@ -191,6 +211,9 @@ public class BlockFruitOre extends BlockContainer {
 		}
 	}
 
+	/**
+	 * increment grow level
+	 */
 	protected void growFruit(World world, int blockX, int blockY, int blockZ, int meta) {
 		world.setBlockMetadataWithNotify(blockX, blockY, blockZ, ++meta, 2);
 	}

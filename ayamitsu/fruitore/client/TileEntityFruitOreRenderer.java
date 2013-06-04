@@ -11,6 +11,9 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Vec3;
+import net.minecraft.util.Vec3Pool;
+import net.minecraft.world.World;
 
 public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
@@ -55,16 +58,17 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
 
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_LIGHTING);
 
 		GL11.glPushMatrix();
+
+		GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(770, 1);
 
 		GL11.glTranslatef(0.0F, -0.5F, 0.0F);
 
 		Tessellator tes = Tessellator.instance;
 
-		GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-
 		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
 		tes.setColorRGBA_F(0.4F, 0.4F, 0.4F, 0.6F);
 
@@ -148,248 +152,15 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 		tes.addVertex(0.00F, 0.09F, 0.225F);
 
 		tes.draw();
-
-		/*tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tes.setColorRGBA_F(0.4F, 0.4F, 0.4F, 0.6F);
-
-		tes.addVertex(0.0F, 1.0F, 0.0F);
-		tes.addVertex(0.0F, 0.9F, 0.30F);
-		tes.addVertex(0.25F, 0.9F, 0.15F);
-		tes.addVertex(0.25F, 0.9F, -0.15F);
-		tes.addVertex(-0.0F, 0.9F, -0.30F);
-		tes.addVertex(-0.25F, 0.9F, -0.15F);
-		tes.addVertex(-0.25F, 0.9F, 0.15F);
-		tes.addVertex(0.0F, 0.9F, 0.30F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_QUAD_STRIP);
-
-		tes.addVertex(0.0F, 0.9F, 0.30F);
-		tes.addVertex(0.00F, 0.70F, 0.50F);
-		tes.addVertex(0.25F, 0.9F, 0.15F);
-		tes.addVertex(0.433F, 0.70F, 0.25F);
-		tes.addVertex(0.25F, 0.9F, -0.15F);
-		tes.addVertex(0.433F, 0.70F, -0.25F);
-		tes.addVertex(-0.0F, 0.9F, -0.30F);
-		tes.addVertex(0.00F, 0.70F, -0.50F);
-		tes.addVertex(-0.25F, 0.9F, -0.15F);
-		tes.addVertex(-0.433F, 0.70F, -0.25F);
-		tes.addVertex(-0.25F, 0.9F, 0.15F);
-		tes.addVertex(-0.433F, 0.70F, 0.25F);
-		tes.addVertex(0.0F, 0.9F, 0.30F);
-		tes.addVertex(0.00F, 0.70F, 0.50F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_QUAD_STRIP);
-
-		tes.addVertex(0.00F, 0.70F, 0.50F);
-		tes.addVertex(0.00F, 0.20F, 0.40F);
-		tes.addVertex(0.433F, 0.70F, 0.25F);
-		tes.addVertex(0.3464F, 0.20F, 0.20F);
-		tes.addVertex(0.433F, 0.70F, -0.25F);
-		tes.addVertex(0.3464F, 0.20F, -0.20F);
-		tes.addVertex(0.00F, 0.70F, -0.50F);
-		tes.addVertex(0.00F, 0.20F, -0.40F);
-		tes.addVertex(-0.433F, 0.70F, -0.25F);
-		tes.addVertex(-0.3464F, 0.20F, -0.20F);
-		tes.addVertex(-0.433F, 0.70F, 0.25F);
-		tes.addVertex(-0.3464F, 0.20F, 0.20F);
-		tes.addVertex(0.00F, 0.70F, 0.50F);
-		tes.addVertex(0.00F, 0.20F, 0.40F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_QUAD_STRIP);
-
-		tes.addVertex(0.00F, 0.20F, 0.40F);
-		tes.addVertex(0.00F, 0.09F, 0.225F);
-		tes.addVertex(0.3464F, 0.20F, 0.20F);
-		tes.addVertex(0.1949F, 0.09F, 0.1125F);
-		tes.addVertex(0.3464F, 0.20F, -0.20F);
-		tes.addVertex(0.1949F, 0.09F, -0.1125F);
-		tes.addVertex(0.00F, 0.20F, -0.40F);
-		tes.addVertex(0.00F, 0.09F, -0.225F);
-		tes.addVertex(-0.3464F, 0.20F, -0.20F);
-		tes.addVertex(-0.1949F, 0.09F, -0.1125F);
-		tes.addVertex(-0.3464F, 0.20F, 0.20F);
-		tes.addVertex(-0.1949F, 0.09F, 0.1125F);
-		tes.addVertex(0.00F, 0.20F, 0.40F);
-		tes.addVertex(0.00F, 0.09F, 0.225F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-
-		tes.addVertex(0.0F, 0.0F, 0.0F);
-		tes.addVertex(0.00F, 0.09F, 0.225F);
-		tes.addVertex(-0.1949F, 0.09F, 0.1125F);
-		tes.addVertex(-0.1949F, 0.09F, -0.1125F);
-		tes.addVertex(0.00F, 0.09F, -0.225F);
-		tes.addVertex(0.1949F, 0.09F, -0.1125F);
-		tes.addVertex(0.1949F, 0.09F, 0.1125F);
-		tes.addVertex(0.00F, 0.09F, 0.225F);
-
-		tes.draw();*/
-
-		/*tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tes.setColorRGBA_F(0.4F, 0.4F, 0.4F, 0.6F);
-
-		tes.addVertexWithUV(0.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.0F, 0.9F, 0.30F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.25F, 0.9F, 0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.25F, 0.9F, -0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.0F, 0.9F, -0.30F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.25F, 0.9F, -0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.25F, 0.9F, 0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.0F, 0.9F, 0.30F, 0.0F, 0.0F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_QUAD_STRIP);
-
-		tes.addVertexWithUV(0.0F, 0.9F, 0.30F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.70F, 0.50F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.25F, 0.9F, 0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.433F, 0.70F, 0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.25F, 0.9F, -0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.433F, 0.70F, -0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.0F, 0.9F, -0.30F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.70F, -0.50F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.25F, 0.9F, -0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.433F, 0.70F, -0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.25F, 0.9F, 0.15F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.433F, 0.70F, 0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.0F, 0.9F, 0.30F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.70F, 0.50F, 0.0F, 0.0F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_QUAD_STRIP);
-
-		tes.addVertexWithUV(0.00F, 0.70F, 0.50F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.20F, 0.40F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.433F, 0.70F, 0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.3464F, 0.20F, 0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.433F, 0.70F, -0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.3464F, 0.20F, -0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.70F, -0.50F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.20F, -0.40F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.433F, 0.70F, -0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.3464F, 0.20F, -0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.433F, 0.70F, 0.25F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.3464F, 0.20F, 0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.70F, 0.50F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.20F, 0.40F, 0.0F, 0.0F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_QUAD_STRIP);
-
-		tes.addVertexWithUV(0.00F, 0.20F, 0.40F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.09F, 0.225F, 0.0F, 0.0F);
-
-		tes.addVertexWithUV(0.3464F, 0.20F, 0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.1949F, 0.09F, 0.1125F, 0.0F, 0.0F);
-
-		tes.addVertexWithUV(0.3464F, 0.20F, -0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.1949F, 0.09F, -0.1125F, 0.0F, 0.0F);
-
-		tes.addVertexWithUV(0.00F, 0.20F, -0.40F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.09F, -0.225F, 0.0F, 0.0F);
-
-		tes.addVertexWithUV(-0.3464F, 0.20F, -0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.1949F, 0.09F, -0.1125F, 0.0F, 0.0F);
-
-		tes.addVertexWithUV(-0.3464F, 0.20F, 0.20F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.1949F, 0.09F, 0.1125F, 0.0F, 0.0F);
-
-		tes.addVertexWithUV(0.00F, 0.20F, 0.40F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.09F, 0.225F, 0.0F, 0.0F);
-
-		tes.draw();
-
-		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-
-		tes.addVertexWithUV(0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.09F, 0.225F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.1949F, 0.09F, 0.1125F, 0.0F, 0.0F);
-		tes.addVertexWithUV(-0.1949F, 0.09F, -0.1125F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.09F, -0.225F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.1949F, 0.09F, -0.1125F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.1949F, 0.09F, 0.1125F, 0.0F, 0.0F);
-		tes.addVertexWithUV(0.00F, 0.09F, 0.225F, 0.0F, 0.0F);
-
-		tes.draw();*/
-
-		/*
-		Tessellator tes = Tessellator.instance;
-
-
-		// top
-		GL11.glNormal3f(0F, -1.0F, 0F);
-		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tes.setColorRGBA_F(0.2F, 0.2F, 0.6F, 0.5F);
-
-		tes.addVertexWithUV(0D, 0.5D, 0D, 0.5D, 0.5D);
-
-		tes.addVertexWithUV(  0.5D, 0.25D, 0D, 0.5D, 0.5D);
-		tes.addVertexWithUV( 0.25D, 0.25D, -0.4330127018922193233819D, 1.0D, 0.0D);
-		tes.addVertexWithUV(-0.25D, 0.25D, -0.4330127018922193233819D, 0.0D, 0.0D);
-		tes.addVertexWithUV( -0.5D, 0.25D, 0D, 0.5D, 0.5D);
-		tes.addVertexWithUV(-0.25D, 0.25D, 0.4330127018922193233819D, 0.0D, 1.0D);
-		tes.addVertexWithUV( 0.25D, 0.25D, 0.4330127018922193233819D, 1.0D, 1.0D);
-		tes.addVertexWithUV(  0.5D, 0.25D, 0D, 0.5D, 0.5D);
-
-		tes.draw();
-
-		// bottom
-		GL11.glNormal3f(0F, 1.0F, 0F);
-		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-
-		tes.addVertexWithUV(0D, -0.5D, 0D, 0.5D, 0.5D);
-
-		tes.addVertexWithUV(  0.5D, -0.25D, 0D, 0.5D, 0.5D);
-		tes.addVertexWithUV( 0.25D, -0.25D, 0.4330127018922193233819D, 1.0D, 1.0D);
-		tes.addVertexWithUV(-0.25D, -0.25D, 0.4330127018922193233819D, 0.0D, 1.0D);
-		tes.addVertexWithUV( -0.5D, -0.25D, 0D, 0.5D, 0.5D);
-		tes.addVertexWithUV(-0.25D, -0.25D, -0.4330127018922193233819D, 0.0D, 0.0D);
-		tes.addVertexWithUV( 0.25D, -0.25D, -0.4330127018922193233819D, 1.0D, 0.0D);
-		tes.addVertexWithUV(  0.5D, -0.25D, 0D, 0.5D, 0.5D);
-
-		tes.draw();
-
-		// side
-		GL11.glNormal3f(0F, -1.0F, 0F);
-		tes.startDrawing(GL11.GL_QUAD_STRIP);
-
-		tes.addVertexWithUV(  0.5D, 0.25, 0D, 0D, 0D);
-		tes.addVertexWithUV(  0.5D, -0.25, 0D, 0D, 1D);
-		tes.addVertexWithUV( 0.25D, 0.25, -0.4330127018922193233819D, 1D, 0D);
-		tes.addVertexWithUV( 0.25D, -0.25, -0.4330127018922193233819D, 1D, 1D);
-		tes.addVertexWithUV(-0.25D, 0.25, -0.4330127018922193233819D, 0D, 0D);
-		tes.addVertexWithUV(-0.25D, -0.25, -0.4330127018922193233819D, 0D, 1D);
-		tes.addVertexWithUV( -0.5D, 0.25, 0D, 1D, 0D);
-		tes.addVertexWithUV( -0.5D, -0.25, 0D, 1D, 1D);
-		tes.addVertexWithUV(-0.25D, 0.25, 0.4330127018922193233819D, 0D, 0D);
-		tes.addVertexWithUV(-0.25D, -0.25, 0.4330127018922193233819D, 0D, 1D);
-		tes.addVertexWithUV( 0.25D, 0.25, 0.4330127018922193233819D, 1D, 0D);
-		tes.addVertexWithUV( 0.25D, -0.25, 0.4330127018922193233819D, 1D, 1D);
-		tes.addVertexWithUV(  0.5D, 0.25, 0D, 0D, 0D);
-		tes.addVertexWithUV(  0.5D, -0.25, 0D, 0D, 1D);
-
-		tes.draw();
-		*/
-
-
-
-		GL11.glPopMatrix();
+		GL11.glDisable(GL11.GL_BLEND);
 
 		GL11.glPopMatrix();
 
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_LIGHTING);
+
+		GL11.glPopMatrix();
+
 	}
 
 }
