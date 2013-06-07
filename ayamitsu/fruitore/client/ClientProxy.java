@@ -3,6 +3,7 @@ package ayamitsu.fruitore.client;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ayamitsu.fruitore.FruitOre;
 import ayamitsu.fruitore.Proxy;
 import ayamitsu.fruitore.block.TileEntityFruitOre;
 

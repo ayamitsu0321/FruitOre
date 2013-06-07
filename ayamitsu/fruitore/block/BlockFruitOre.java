@@ -3,6 +3,7 @@ package ayamitsu.fruitore.block;
 import java.util.List;
 import java.util.Random;
 
+import ayamitsu.fruitore.FruitOre;
 import ayamitsu.fruitore.object.FruitOreObject;
 
 import net.minecraft.block.BlockContainer;
@@ -229,13 +230,13 @@ public class BlockFruitOre extends BlockContainer {
 		list.add(new ItemStack(id, 1, 0));
 
 		// debug
-		if (id != this.blockID) {
+		//if (id != this.blockID) {
 			for (int i = 0; i < FruitOreObject.fruitsList.length; i++) {
 				if (FruitOreObject.fruitsList[i] != null) {
 					FruitOreObject.fruitsList[i].getSubFruits(id, tab, list);
 				}
 			}
-		}
+		//}
 	}
 
 }

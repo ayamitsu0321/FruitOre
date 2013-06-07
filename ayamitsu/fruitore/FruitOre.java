@@ -61,11 +61,13 @@ public class FruitOre {
 
 	@Mod.Init
 	public void init(FMLInitializationEvent event) {
-		this.fruitOreBlock = new BlockFruitOre(this.fruitOreBlockId, Material.iron).setUnlocalizedName("ayamitsu.fruitore.fruitore").setCreativeTab(CreativeTabs.tabBlock);
-		GameRegistry.registerBlock(this.fruitOreBlock, "ayamitsu.fruitore.fruitore");
+		this.fruitOreBlock = new BlockFruitOre(this.fruitOreBlockId, Material.rock).setHardness(1.5F).setResistance(10.0F).setUnlocalizedName("ayamitsu/fruitore:fruitore").setCreativeTab(CreativeTabs.tabBlock);
+		GameRegistry.registerBlock(this.fruitOreBlock, "ayamitsu/fruitore:fruitore");
 		LanguageRegistry.instance().addNameForObject(this.fruitOreBlock, "en_US", "Fruit Ore Block");
 
-		this.fruitOreSaplingItem = new ItemFruitOreSapling(this.fruitOreSaplingItemId - 256, this.fruitOreBlock.blockID).setUnlocalizedName("atamitsu.fruitore.fruitoresapling").setCreativeTab(CreativeTabs.tabBlock);
+		//this.fruitOreSaplingItem = new ItemFruitOreSapling(this.fruitOreSaplingItemId - 256, this.fruitOreBlock.blockID).setUnlocalizedName("ayamitsu.fruitore.fruitoresapling").setCreativeTab(CreativeTabs.tabBlock);
+		Item.itemsList[this.fruitOreBlock.blockID] = null;
+		this.fruitOreSaplingItem = new ItemFruitOreSapling(this.fruitOreBlock.blockID - 256);
 
 		GameRegistry.addRecipe(new RecipeFruitOreSapling());
 

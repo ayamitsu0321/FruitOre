@@ -62,15 +62,17 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
 		GL11.glPushMatrix();
 
-		GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 1);
+		if (object != null && fruitOre.getBlockMetadata() >= object.getHarvetableLevel()) {
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(770, 1);
+		}
 
 		GL11.glTranslatef(0.0F, -0.5F, 0.0F);
 
 		Tessellator tes = Tessellator.instance;
 
 		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tes.setColorRGBA_F(0.4F, 0.4F, 0.4F, 0.6F);
+		tes.setColorRGBA_F(0.77F, 0.24F, 0.16F, 0.9F);
 
 		tes.addVertex(0.0F, 1.0F, 0.0F);
 		tes.addVertex(0.0F, 0.9F, 0.30F);
@@ -152,6 +154,7 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 		tes.addVertex(0.00F, 0.09F, 0.225F);
 
 		tes.draw();
+
 		GL11.glDisable(GL11.GL_BLEND);
 
 		GL11.glPopMatrix();

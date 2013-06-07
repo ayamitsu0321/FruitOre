@@ -21,6 +21,10 @@ import net.minecraft.world.World;
  */
 public class ItemFruitOreSapling extends ItemBlock {
 
+	public ItemFruitOreSapling(int id) {
+		super(id);
+	}
+
 	public ItemFruitOreSapling(int id, int blockId) {
 		super(id);
 		try {
