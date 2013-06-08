@@ -37,6 +37,22 @@ public class ItemFruitOreSapling extends ItemBlock {
 	}
 
 	@Override
+	public int getColorFromItemStack(ItemStack itemStack, int layer) {
+		if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey(FruitOreObject.FRUIT_ORE_OBJECT)) {
+			NBTTagCompound fruitNBT = itemStack.getTagCompound().getCompoundTag(FruitOreObject.FRUIT_ORE_OBJECT);
+			int fruitId = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_ID);
+			int fruitMeta = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_META);
+			FruitOreObject object = FruitOreObject.fruitsList[fruitId];
+
+			if (object != null) {
+				return object.getFruitColor(fruitMeta);
+			}
+		}
+
+		return 0xffffff;
+	}
+
+	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
 		NBTTagCompound nbttagcompound = itemStack.getTagCompound();
 

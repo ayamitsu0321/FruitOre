@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -39,6 +40,10 @@ public class FruitOre {
 
 	public static int fruitOreSaplingItemId;
 
+
+	/** the flag, add all fruits to creative tabs **/
+	public static boolean addAllFruitsToCreativeTabs;
+
 	@Mod.PreInit
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration conf = new Configuration(event.getSuggestedConfigurationFile());
@@ -51,6 +56,8 @@ public class FruitOre {
 
 		this.fruitOreBlockId = conf.getProperty("fruitOreBlockId", 1800).getInt();
 		this.fruitOreSaplingItemId = conf.getProperty("fruitOreSaplingItemId", 14000).getInt();
+
+		this.addAllFruitsToCreativeTabs = conf.getProperty("addAllFruitsToCreativeTabs", false).getBoolean();
 
 		try {
 			conf.save();
@@ -67,12 +74,18 @@ public class FruitOre {
 
 		//this.fruitOreSaplingItem = new ItemFruitOreSapling(this.fruitOreSaplingItemId - 256, this.fruitOreBlock.blockID).setUnlocalizedName("ayamitsu.fruitore.fruitoresapling").setCreativeTab(CreativeTabs.tabBlock);
 		Item.itemsList[this.fruitOreBlock.blockID] = null;
-		this.fruitOreSaplingItem = new ItemFruitOreSapling(this.fruitOreBlock.blockID - 256);
+		Item.itemsList[this.fruitOreBlock.blockID] = this.fruitOreSaplingItem = new ItemFruitOreSapling(this.fruitOreBlock.blockID - 256);
 
 		GameRegistry.addRecipe(new RecipeFruitOreSapling());
+		GameRegistry.addShapelessRecipe(new ItemStack(this.fruitOreSaplingItem),
+				new Object[] {
+				new ItemStack(Block.sapling),
+				new ItemStack(Block.stone)
+			}
+		);
 
 		LanguageRegistry.instance().addStringLocalization("ayamitsu.fruitore.fruit", "en_US", "Fruit");
-		LanguageRegistry.instance().addStringLocalization("ayamitsu.fruitore.fruit", "ja_JP", "フルーツ");
+		LanguageRegistry.instance().addStringLocalization("ayamitsu.fruitore.fruit", "ja_JP", "果実");
 
 		this.proxy.load();
 	}

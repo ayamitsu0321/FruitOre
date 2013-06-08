@@ -37,9 +37,10 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
 		if (object != null) {
 			if (fruitOre.getBlockMetadata() >= object.getHarvetableLevel()) {
-				ItemStack renderItem = object.getRenderItem(fruitOre.getFruitMeta(), fruitOre.worldObj.rand);
+				ItemStack renderItem = object.getRenderItem(fruitOre.getFruitMeta());
 
 				if (renderItem != null) {
+					renderItem.stackSize = 1;
 					EntityItem entityItem = new EntityItem(fruitOre.worldObj, 0.0D, 0.0D, 0.0D, renderItem);
 					entityItem.hoverStart = 0;
 
@@ -62,17 +63,26 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
 		GL11.glPushMatrix();
 
-		if (object != null && fruitOre.getBlockMetadata() >= object.getHarvetableLevel()) {
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(770, 1);
+		Tessellator tes = Tessellator.instance;
+		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
+
+		if (object != null) {
+
+			int color = object.getFruitColor(fruitOre.getFruitMeta());
+			float red = (float)(color >> 0x10 & 255) / 255.0F;
+			float green = (float)(color >> 0x08 & 255) / 255.0F;
+			float blue = (float)(color >> 0x00 & 255) / 255.0F;
+			tes.setColorRGBA_F(red, green, blue, object.getFruitAlpha(fruitOre.getFruitMeta()));
+			//tes.setColorRGBA_F(0.77F, 0.24F, 0.16F, 0.9F);
+
+			if (fruitOre.getBlockMetadata() >= object.getHarvetableLevel()) {
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(770, 1);
+			}
 		}
 
 		GL11.glTranslatef(0.0F, -0.5F, 0.0F);
 
-		Tessellator tes = Tessellator.instance;
-
-		tes.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tes.setColorRGBA_F(0.77F, 0.24F, 0.16F, 0.9F);
 
 		tes.addVertex(0.0F, 1.0F, 0.0F);
 		tes.addVertex(0.0F, 0.9F, 0.30F);

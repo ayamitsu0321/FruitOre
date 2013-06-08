@@ -23,8 +23,8 @@ import net.minecraft.world.World;
  */
 public class BlockFruitOre extends BlockContainer {
 
-	public BlockFruitOre(int par1, Material par2Material) {
-		super(par1, par2Material);
+	public BlockFruitOre(int id, Material material) {
+		super(id, material);
 		this.setTickRandomly(true);
 	}
 
@@ -35,12 +35,13 @@ public class BlockFruitOre extends BlockContainer {
 
 	@Override
 	public boolean isOpaqueCube() {
-        return false;
-    }
+		return false;
+	}
 
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
@@ -48,8 +49,8 @@ public class BlockFruitOre extends BlockContainer {
 	}
 
 	@Override
-	public int idDropped(int meta, Random random, int dortune) {
-		return 0;
+	public int idDropped(int meta, Random random, int fortune) {
+		return this.blockID;
 	}
 
 	@Override
@@ -71,8 +72,8 @@ public class BlockFruitOre extends BlockContainer {
 
 	@Override
 	public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4) {
-        return super.canPlaceBlockAt(par1World, par2, par3, par4) && this.canBlockStay(par1World, par2, par3, par4);
-    }
+		return super.canPlaceBlockAt(par1World, par2, par3, par4) && this.canBlockStay(par1World, par2, par3, par4);
+	}
 
 	@Override
 	public void onBlockPlacedBy(World world, int blockX, int blockY, int blockZ, EntityLiving living, ItemStack itemStack) {
@@ -130,14 +131,15 @@ public class BlockFruitOre extends BlockContainer {
 
 	@Override
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {
-        super.onNeighborBlockChange(par1World, par2, par3, par4, par5);
-        this.checkFruitChange(par1World, par2, par3, par4);
-    }
+		super.onNeighborBlockChange(par1World, par2, par3, par4, par5);
+		this.checkFruitChange(par1World, par2, par3, par4);
+	}
 
 	@Override
 	public boolean onBlockActivated(World world, int blockX, int blockY, int blockZ, EntityPlayer player, int face, float hitX, float hitY, float hitZ) {
 		ItemStack itemStack = player.inventory.getCurrentItem();
 
+		// grow fruit by bone meal
 		if (itemStack != null && itemStack.itemID == Item.dyePowder.itemID && itemStack.getItemDamage() == 15) {
 			TileEntity tileEntity = world.getBlockTileEntity(blockX, blockY, blockZ);
 
@@ -146,7 +148,7 @@ public class BlockFruitOre extends BlockContainer {
 
 				if (object != null && this.canGrowFruit(object, world, blockX, blockY, blockZ, tileEntity.getBlockMetadata(), world.rand)) {
 					if (!world.isRemote) {
-						this.growFruitMax(world, blockX, blockY, blockZ);
+						this.growFruit(world, blockX, blockY, blockZ, world.getBlockMetadata(blockX, blockY, blockZ));
 
 						if (!player.capabilities.isCreativeMode) {
 							if (--itemStack.stackSize <= 0) {
@@ -164,7 +166,7 @@ public class BlockFruitOre extends BlockContainer {
 	}
 
 	/**
-	 * grow
+	 * natural growing
 	 */
 	@Override
 	public void updateTick(World world, int blockX, int blockY, int blockZ, Random random) {
@@ -229,14 +231,13 @@ public class BlockFruitOre extends BlockContainer {
 	public void getSubBlocks(int id, CreativeTabs tab, List list) {
 		list.add(new ItemStack(id, 1, 0));
 
-		// debug
-		//if (id != this.blockID) {
+		if (FruitOre.addAllFruitsToCreativeTabs) {
 			for (int i = 0; i < FruitOreObject.fruitsList.length; i++) {
 				if (FruitOreObject.fruitsList[i] != null) {
 					FruitOreObject.fruitsList[i].getSubFruits(id, tab, list);
 				}
 			}
-		//}
+		}
 	}
 
 }
