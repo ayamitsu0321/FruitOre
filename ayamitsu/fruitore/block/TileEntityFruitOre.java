@@ -1,12 +1,16 @@
 package ayamitsu.fruitore.block;
 
+import java.io.IOException;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import ayamitsu.fruitore.object.FruitOreObject;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityFruitOre extends TileEntity {
@@ -59,14 +63,20 @@ public class TileEntityFruitOre extends TileEntity {
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		this.writeToNBT(nbt);
-		Packet packet = new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 255, nbt);
-		return packet;
-	}
+		byte[] data = null;
 
-	// forge
-	@Override
-	public void onDataPacket(INetworkManager networkmanager, Packet132TileEntityData packet) {
-		this.readFromNBT(packet.customParam1);
+		try {
+			data = CompressedStreamTools.compress(nbt);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (data != null) {
+			Packet packet = new Packet250CustomPayload("fruitore.te", data);
+			return packet;
+		}
+
+		return null;
 	}
 
 }

@@ -26,6 +26,8 @@ public class BlockFruitOre extends BlockContainer {
 	public BlockFruitOre(int id, Material material) {
 		super(id, material);
 		this.setTickRandomly(true);
+		this.setHardness(1.5F);
+		this.setResistance(10.0F);
 	}
 
 	@Override

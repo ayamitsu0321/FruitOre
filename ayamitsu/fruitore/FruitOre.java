@@ -6,6 +6,7 @@ import ayamitsu.fruitore.block.BlockFruitOre;
 import ayamitsu.fruitore.block.TileEntityFruitOre;
 import ayamitsu.fruitore.item.ItemFruitOreSapling;
 import ayamitsu.fruitore.item.RecipeFruitOreSapling;
+import ayamitsu.fruitore.network.PacketHandler;
 import ayamitsu.util.io.Configuration;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,6 +17,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -23,6 +25,12 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 	modid = "ayamitsu.fruitore",
 	name = "FruitOre",
 	version = "1.0.0"
+)
+@NetworkMod(
+	clientSideRequired = true,
+	serverSideRequired = false,
+	packetHandler = PacketHandler.class,
+	channels = "fruitore.te"
 )
 public class FruitOre {
 
@@ -68,7 +76,7 @@ public class FruitOre {
 
 	@Mod.Init
 	public void init(FMLInitializationEvent event) {
-		this.fruitOreBlock = new BlockFruitOre(this.fruitOreBlockId, Material.rock).setHardness(1.5F).setResistance(10.0F).setUnlocalizedName("ayamitsu/fruitore:fruitore").setCreativeTab(CreativeTabs.tabBlock);
+		this.fruitOreBlock = new BlockFruitOre(this.fruitOreBlockId, Material.rock).setUnlocalizedName("ayamitsu/fruitore:fruitore").setCreativeTab(CreativeTabs.tabBlock);
 		GameRegistry.registerBlock(this.fruitOreBlock, "ayamitsu/fruitore:fruitore");
 		LanguageRegistry.instance().addNameForObject(this.fruitOreBlock, "en_US", "Fruit Ore Block");
 

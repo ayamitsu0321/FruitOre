@@ -41,7 +41,7 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 
 				if (renderItem != null) {
 					renderItem.stackSize = 1;
-					EntityItem entityItem = new EntityItem(fruitOre.worldObj, 0.0D, 0.0D, 0.0D, renderItem);
+					EntityItem entityItem = new EntityItem(fruitOre.getWorldObj(), 0.0D, 0.0D, 0.0D, renderItem);
 					entityItem.hoverStart = 0;
 
 					GL11.glPushMatrix();

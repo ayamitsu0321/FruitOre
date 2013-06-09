@@ -69,7 +69,7 @@ public class FruitOreObject {
 
 		if (value > 0) {
 			try {
-				return this.fruitItem != null ? new ItemStack(this.fruitItem.itemID, value, this.fruitItem.getItemDamage()) : new ItemStack(Block.blocksList[this.fruitId].idDropped(meta, random, 0), value, Block.blocksList[this.fruitId].damageDropped(meta));
+				return this.fruitItem != null ? new ItemStack(this.fruitItem.itemID, value, this.fruitItem.getItemDamage()) : new ItemStack(this.fruitId, value, Block.blocksList[this.fruitId].damageDropped(meta));
 			} catch (NullPointerException e) {
 				e.printStackTrace();// missing fruit object !
 			}
@@ -123,6 +123,7 @@ public class FruitOreObject {
 		fruitsList[Block.oreEmerald.blockID] = new FruitOreObject(Block.oreEmerald.blockID).setFruitColor(0x24af5a);
 		fruitsList[Block.glowStone.blockID] = new FruitOreObject(Block.glowStone.blockID).setFruitColor(0xffbc5e);
 		fruitsList[Block.oreNetherQuartz.blockID] = new FruitOreObject(Block.oreNetherQuartz.blockID).setFruitColor(0xe7e1d8);
+		fruitsList[Block.oreCoal.blockID] = new FruitOreObject(Block.oreCoal.blockID).setFruitColor(0x343434);
 	}
 
 }
