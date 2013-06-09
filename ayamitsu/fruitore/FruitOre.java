@@ -62,7 +62,7 @@ public class FruitOre {
 			e.printStackTrace();
 		}
 
-		this.fruitOreBlockId = conf.getProperty("fruitOreBlockId", 1800).getInt();
+		this.fruitOreBlockId = conf.getProperty("fruitOreBlockId", 180).getInt();
 		this.fruitOreSaplingItemId = conf.getProperty("fruitOreSaplingItemId", 14000).getInt();
 
 		this.addAllFruitsToCreativeTabs = conf.getProperty("addAllFruitsToCreativeTabs", false).getBoolean();

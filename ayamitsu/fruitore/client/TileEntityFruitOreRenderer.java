@@ -51,9 +51,9 @@ public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 					GL11.glPopMatrix();
 				}
 			} else {
-				float scale = 0.5F;
+				float scale = 0.5F + (object.getMaxGrowLevel() != 0 ? ((float)fruitOre.getBlockMetadata() / (float)object.getMaxGrowLevel()) / 2.0F : 0.0F);
+				GL11.glTranslatef(0.0F, 0.5F - (scale / 2.0F), 0.0F);
 				GL11.glScalef(scale, scale, scale);
-				GL11.glTranslatef(0.0F, 0.5F, 0.0F);
 			}
 		}
 
