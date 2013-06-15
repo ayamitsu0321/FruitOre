@@ -1,18 +1,14 @@
 package ayamitsu.fruitore.object;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class FruitOreObject {
 
@@ -28,6 +24,8 @@ public class FruitOreObject {
 
 	/** drop item, if null, refer from corresponded block **/
 	protected ItemStack fruitItem;
+
+	protected ItemStack renderItem;
 
 	protected int fruitColor = 0xffffff;
 
@@ -78,8 +76,12 @@ public class FruitOreObject {
 		return null;
 	}
 
+	public boolean matchRecipe(ItemStack itemStack) {
+		return itemStack.itemID == this.fruitId;
+	}
+
 	public ItemStack getRenderItem(int meta) {
-		return this.fruitItem != null ? this.fruitItem : (this.fruitItem = new ItemStack(this.fruitId, 1, Block.blocksList[this.fruitId].damageDropped(meta)));
+		return this.renderItem != null ? this.renderItem : (this.renderItem = new ItemStack(this.fruitId, 1, Block.blocksList[this.fruitId].damageDropped(meta)));
 	}
 
 	public int getFruitColor(int meta) {

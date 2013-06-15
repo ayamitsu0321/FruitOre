@@ -3,15 +3,13 @@ package ayamitsu.fruitore.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import ayamitsu.fruitore.FruitOre;
-import ayamitsu.fruitore.object.FruitOreObject;
-
-import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import ayamitsu.fruitore.FruitOre;
+import ayamitsu.fruitore.object.FruitOreObject;
 
 public class RecipeFruitOreSapling implements IRecipe {
 
@@ -39,8 +37,12 @@ public class RecipeFruitOreSapling implements IRecipe {
 
 			if (itemStack.itemID == FruitOre.fruitOreSaplingItem.itemID && (itemStack.getTagCompound() == null || !itemStack.getTagCompound().hasKey(FruitOreObject.FRUIT_ORE_OBJECT))) {
 				fruitSaplingBase = itemStack;
-			} else if (itemStack.itemID < Block.blocksList.length && FruitOreObject.fruitsList[itemStack.itemID] != null) {
-				fruitOreMaterial = itemStack;
+			} else {
+				for (int j = 0; j < FruitOreObject.fruitsList.length; j++) {
+					if (FruitOreObject.fruitsList[j] != null && FruitOreObject.fruitsList[j].matchRecipe(itemStack)) {
+						fruitOreMaterial = itemStack;
+					}
+				}
 			}
 		}
 

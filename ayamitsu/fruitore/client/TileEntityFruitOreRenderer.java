@@ -1,9 +1,5 @@
 package ayamitsu.fruitore.client;
 
-import org.lwjgl.opengl.GL11;
-
-import ayamitsu.fruitore.block.TileEntityFruitOre;
-import ayamitsu.fruitore.object.FruitOreObject;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -11,9 +7,11 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Vec3;
-import net.minecraft.util.Vec3Pool;
-import net.minecraft.world.World;
+
+import org.lwjgl.opengl.GL11;
+
+import ayamitsu.fruitore.block.TileEntityFruitOre;
+import ayamitsu.fruitore.object.FruitOreObject;
 
 public class TileEntityFruitOreRenderer extends TileEntitySpecialRenderer {
 

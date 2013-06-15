@@ -3,17 +3,13 @@ package ayamitsu.fruitore.item;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import ayamitsu.fruitore.object.FruitOreObject;
-import ayamitsu.util.reflect.Reflector;
-
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
+import ayamitsu.fruitore.object.FruitOreObject;
+import ayamitsu.util.reflect.Reflector;
 
 /**
  * this metadata is ID of fruit,

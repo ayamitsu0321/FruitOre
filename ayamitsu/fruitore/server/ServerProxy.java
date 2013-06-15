@@ -1,8 +1,8 @@
 package ayamitsu.fruitore.server;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import ayamitsu.fruitore.Proxy;
 import ayamitsu.fruitore.block.TileEntityFruitOre;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ServerProxy extends Proxy {
 

@@ -3,20 +3,18 @@ package ayamitsu.fruitore.block;
 import java.util.List;
 import java.util.Random;
 
-import ayamitsu.fruitore.FruitOre;
-import ayamitsu.fruitore.object.FruitOreObject;
-
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import ayamitsu.fruitore.FruitOre;
+import ayamitsu.fruitore.object.FruitOreObject;
 
 /**
  * grow level is Block Meta, ID and Meta into TileEntity
