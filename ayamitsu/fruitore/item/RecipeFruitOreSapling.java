@@ -31,6 +31,7 @@ public class RecipeFruitOreSapling implements IRecipe {
 
 		ItemStack fruitSaplingBase = null;
 		ItemStack fruitOreMaterial = null;
+		int fruitId = -1;
 
 		for (int i = 0; i < items.size(); i++) {
 			ItemStack itemStack = items.get(i);
@@ -41,16 +42,17 @@ public class RecipeFruitOreSapling implements IRecipe {
 				for (int j = 0; j < FruitOreObject.fruitsList.length; j++) {
 					if (FruitOreObject.fruitsList[j] != null && FruitOreObject.fruitsList[j].matchRecipe(itemStack)) {
 						fruitOreMaterial = itemStack;
+						fruitId = j;
 					}
 				}
 			}
 		}
 
-		if (fruitSaplingBase != null && fruitOreMaterial != null) {
+		if (fruitSaplingBase != null && fruitOreMaterial != null && fruitId > 0) {
 			this.outputItem = new ItemStack(FruitOre.fruitOreSaplingItem);
 			this.outputItem.setTagCompound(new NBTTagCompound());
 			NBTTagCompound fruitNBT = new NBTTagCompound();
-			fruitNBT.setInteger(FruitOreObject.FRUIT_ORE_OBJECT_ID, fruitOreMaterial.itemID);
+			fruitNBT.setInteger(FruitOreObject.FRUIT_ORE_OBJECT_ID, fruitId);
 			fruitNBT.setInteger(FruitOreObject.FRUIT_ORE_OBJECT_META, fruitOreMaterial.getItemDamage());
 			this.outputItem.getTagCompound().setCompoundTag(FruitOreObject.FRUIT_ORE_OBJECT, fruitNBT);
 			return true;
