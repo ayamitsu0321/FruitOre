@@ -6,7 +6,7 @@ import java.util.Random;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -76,7 +76,7 @@ public class BlockFruitOre extends BlockContainer {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int blockX, int blockY, int blockZ, EntityLiving living, ItemStack itemStack) {
+	public void onBlockPlacedBy(World world, int blockX, int blockY, int blockZ, EntityLivingBase living, ItemStack itemStack) {
 		NBTTagCompound fruitNBT = itemStack.getTagCompound().getCompoundTag(FruitOreObject.FRUIT_ORE_OBJECT);
 		int fruitId = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_ID);
 		int fruitMeta = fruitNBT.getInteger(FruitOreObject.FRUIT_ORE_OBJECT_META);

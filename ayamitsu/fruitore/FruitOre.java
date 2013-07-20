@@ -51,7 +51,7 @@ public class FruitOre {
 	/** the flag, add all fruits to creative tabs **/
 	public static boolean addAllFruitsToCreativeTabs;
 
-	@Mod.PreInit
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration conf = new Configuration(event.getSuggestedConfigurationFile());
 
@@ -73,9 +73,9 @@ public class FruitOre {
 		}
 	}
 
-	@Mod.Init
+	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		this.fruitOreBlock = new BlockFruitOre(this.fruitOreBlockId, Material.rock).setUnlocalizedName("ayamitsu/fruitore:fruitore").setCreativeTab(CreativeTabs.tabBlock);
+		this.fruitOreBlock = new BlockFruitOre(this.fruitOreBlockId, Material.rock).setUnlocalizedName("ayamitsu/fruitore:fruitore").func_111022_d("fruitore:fruitore").setCreativeTab(CreativeTabs.tabBlock);
 		GameRegistry.registerBlock(this.fruitOreBlock, "ayamitsu/fruitore:fruitore");
 		LanguageRegistry.instance().addNameForObject(this.fruitOreBlock, "en_US", "Fruit Ore Block");
 

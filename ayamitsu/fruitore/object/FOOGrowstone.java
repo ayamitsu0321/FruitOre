@@ -15,7 +15,7 @@ public class FOOGrowstone extends FruitOreObject {
 
 	@Override
 	public boolean matchRecipe(ItemStack itemStack) {
-		return itemStack.itemID == Item.lightStoneDust.itemID;
+		return itemStack.itemID == Item.glowstone.itemID;
 	}
 
 }
